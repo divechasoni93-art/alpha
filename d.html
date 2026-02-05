@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Valentine’s Day ❤️</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ========= RESET ========= */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ========= BACKGROUND ========= */
+body{
+  font-family:'Montserrat',sans-serif;
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at top, rgba(255,210,220,.7), transparent 60%),
+    linear-gradient(135deg,#fff0f5,#ffe4ec);
+  color:#5a1a2e;
+}
+
+/* ========= INTRO ========= */
+.intro{
+  position:fixed;inset:0;z-index:10;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  animation:glow 3s infinite alternate;
+}
+.intro button{
+  background:#fff;border:none;cursor:pointer;
+  padding:18px 40px;border-radius:50px;
+  font-size:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  transition:.3s;
+}
+.intro button:hover{transform:scale(1.06)}
+
+/* ========= MUSIC ========= */
+.music-btn{
+  position:fixed;top:15px;right:15px;z-index:5;
+  background:#fff;border:none;border-radius:50%;
+  padding:12px;font-size:18px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+}
+
+/* ========= CARD ========= */
+.card{
+  display:none;height:100%;
+  padding:48px 26px;text-align:center;
+  animation:fadeIn 2s ease forwards;
+}
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:34px;color:#b30059;margin-bottom:12px;
+}
+.name{
+  font-family:'Playfair Display',serif;
+  font-size:28px;color:#ff4d6d;
+  margin-bottom:24px;
+  animation:glowText 2s infinite alternate;
+}
+.message{
+  font-size:16px;line-height:1.9;
+  animation:fadeUp 2s ease;
+}
+.signature{
+  margin-top:32px;
+  font-family:'Playfair Display',serif;
+  font-size:18px;color:#800040;
+}
+
+/* ========= TYPEWRITER ========= */
+.typewriter{
+  margin-top:28px;
+  font-family:'Playfair Display',serif;
+  font-size:22px;color:#b30059;
+  border-right:2px solid #b30059;
+  width:0;white-space:nowrap;overflow:hidden;
+  animation:typing 4s steps(22,end) forwards,
+           blink .7s infinite;
+}
+
+/* ========= ROSE PETALS ========= */
+.petal{
+  position:absolute;font-size:18px;
+  animation:fall 5s linear forwards;
+  pointer-events:none;
+}
+
+/* ========= POPUP ========= */
+.popup{
+  position:fixed;inset:0;z-index:20;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.4);
+}
+.popup-content{
+  background:#fff;padding:28px 32px;
+  border-radius:28px;text-align:center;
+  animation:fadeIn 1s ease;
+}
+.popup-content p{
+  font-size:18px;color:#b30059;
+}
+.popup-content button{
+  margin-top:15px;padding:10px 26px;
+  border:none;border-radius:25px;
+  background:#ff4d6d;color:#fff;cursor:pointer;
+}
+
+/* ========= ANIMATIONS ========= */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+@keyframes glow{from{box-shadow:0 0 20px rgba(255,255,255,.3)}
+                to{box-shadow:0 0 50px rgba(255,255,255,.6)}}
+@keyframes glowText{from{text-shadow:0 0 10px #ffb3c6}
+                    to{text-shadow:0 0 25px #ff4d6d}}
+@keyframes typing{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+@keyframes fall{from{transform:translateY(0);opacity:1}
+                to{transform:translateY(120px);opacity:0}}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <button onclick="openCard()">Tap to Open 💌</button>
+</div>
+
+<!-- MUSIC -->
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="music" loop>
+  <!-- optional instrumental -->
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_90c7c1d5b5.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CARD -->
+<div class="card" id="card">
+  <h1>Happy Valentine’s Day, My Love ❤️</h1>
+  <div class="name">Sonu</div>
+
+  <div class="message">
+    You are my love, my constant, my quiet miracle.  
+    In every moment, every dream, every heartbeat —  
+    you are my forever.  
+    Loving you feels gentle, endless, and beautifully true.
+  </div>
+
+  <div class="typewriter">You are my forever</div>
+
+  <div class="signature">
+    Forever Yours,<br><strong>Serendipity ♥️</strong>
+  </div>
+</div>
+
+<!-- SURPRISE -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <p>I love you more every day ❤️</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<script>
+/* OPEN */
+function openCard(){
+  intro.style.display='none';
+  card.style.display='block';
+  setTimeout(()=>popup.style.display='flex',7000);
+}
+
+/* MUSIC */
+let playing=false;
+function toggleMusic(){
+  playing?music.pause():music.play();
+  playing=!playing;
+}
+
+/* CLOSE POPUP */
+function closePopup(){popup.style.display='none';}
+
+/* ROSE PETALS ON TOUCH */
+document.addEventListener('click',e=>{
+  const petal=document.createElement('div');
+  petal.className='petal';
+  petal.innerHTML='🌹';
+  petal.style.left=e.clientX+'px';
+  petal.style.top=e.clientY+'px';
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),5000);
+});
+</script>
+
+</body>
+</html>
